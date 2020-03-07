@@ -14,7 +14,7 @@ namespace Blog
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseMySql("server=localhost;User=root;password=123456;Database=Blog");
+            optionsBuilder.UseMySql("server=localhost;User=root;password=root;Database=Blog");
         }
     }
 }
