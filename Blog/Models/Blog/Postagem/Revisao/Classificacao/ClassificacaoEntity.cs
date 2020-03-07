@@ -7,7 +7,7 @@ namespace Blog.Models.Blog.Postagem.Revisao.Classificacao
 {
     public class ClassificacaoEntity
     {
-        public RevisaoEntity Revisao{ get; set; }
-        public Boolean Classificacao { get; set; }
+        public RevisaoEntity Revisao { get; set; }
+        public bool Classificacao { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace Blog.Models.Blog.Postagem
 {
     public class PostagemEntity
     {
-        public string Titulo;
-        public AutorEntity Autor;
-        public CategoriaEntity Categoria;
-        public List<EtiquetaEntity> Etiquetas { get; set; }
-        public List <RevisaoEntity> Revisoes { get; set; }
+        public string  Titulo { get; set; }
+        public AutorEntity Autor { get; set; }
+        public CategoriaEntity Categoria { get; set; }
+        public List<EtiquetaEntity> Etiquetas;
+        public List<RevisaoEntity> Revisoes { get; set; }
 
     }
 }

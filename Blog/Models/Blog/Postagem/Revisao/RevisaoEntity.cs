@@ -7,9 +7,9 @@ namespace Blog.Models.Blog.Postagem.Revisao
 {
     public class RevisaoEntity
     {
-        public PostagemEntity Postagem { get; set; }
-        public string Texto { get; set; }
-        public int Versao { get; set; }
-        public DateTime Data { get; set; }
-    }   
+        public PostagemEntity Postagem;
+        public string Texto;
+        public int Versao;
+        public DateTime Data;
+    }
 }
