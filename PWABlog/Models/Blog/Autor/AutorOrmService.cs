@@ -30,6 +30,7 @@ namespace PWABlog.Models.Blog.Autor
         {
             return _databaseContext.Autores.Where(c => c.Nome.Contains(nomeAutor)).ToList();
         }
+
         public AutorEntity CriarAutor(string nome)
         {
             var novoAutor = new AutorEntity { Nome = nome };

@@ -11,8 +11,7 @@ namespace PWABlog.ViewModels.Home
         public ICollection<CategoriaHomeIndex> Categorias { get; set; }
         
         public ICollection<EtiquetaHomeIndex> Etiquetas { get; set; }
-        
-        public ICollection<PostagemPopularHomeIndex> PostagensPopulares { get; set; }
+          
 
         
         public HomeIndexViewModel()
@@ -20,7 +19,7 @@ namespace PWABlog.ViewModels.Home
             Postagens = new List<PostagemHomeIndex>();
             Categorias = new List<CategoriaHomeIndex>();
             Etiquetas = new List<EtiquetaHomeIndex>();
-            PostagensPopulares = new List<PostagemPopularHomeIndex>();
+            
         }
     }
 
@@ -30,7 +29,7 @@ namespace PWABlog.ViewModels.Home
         public string Data { get; set; }
         public string Descricao { get; set; }
         public string Categoria { get; set; }
-        public string NumeroComentarios { get; set; }
+        
         public string PostagemId { get; set; }
     }
     
@@ -46,10 +45,5 @@ namespace PWABlog.ViewModels.Home
         public string EtiquetaId { get; set; }
     }
     
-    public class PostagemPopularHomeIndex
-    {
-        public string Titulo { get; set; }
-        public string PostagemId { get; set; }
-        public string Categoria { get; set; }
-    }
+     
 }

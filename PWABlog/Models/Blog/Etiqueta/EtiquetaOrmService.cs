@@ -1,8 +1,7 @@
-﻿using PWABlog.Models.Blog.Categoria;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PWABlog.Models.Blog.Etiqueta
 {
@@ -10,59 +9,78 @@ namespace PWABlog.Models.Blog.Etiqueta
     {
         private readonly DatabaseContext _databaseContext;
 
-        public EtiquetaOrmService(DatabaseContext databaseContext)
-        {
-            _databaseContext = databaseContext;
-        }
+        
+
         public List<EtiquetaEntity> ObterEtiquetas()
         {
-            return _databaseContext.Etiquetas.ToList();
+            return _databaseContext.Etiquetas
+                .Include(e => e.Categoria)
+                .ToList();
         }
-        public EtiquetaEntity ObterEtiquetaPorId(int idCategoria)
+
+        public EtiquetaEntity ObterEtiquetaPorId(int idEtiqueta)
         {
-            var etiqueta = _databaseContext.Etiquetas.Find(idCategoria);
+            var etiqueta = _databaseContext.Etiquetas.Find(idEtiqueta);
 
             return etiqueta;
         }
-        public List<EtiquetaEntity> PesquisarEtiquetaPorNome(string nomeEtiquetas)
+
+        public List<EtiquetaEntity> PesquisarEtiquetasPorNome(string nomeEtiqueta)
         {
-            return _databaseContext.Etiquetas.Where(c => c.Nome.Contains(nomeEtiquetas)).ToList();
+            return _databaseContext.Etiquetas.Where(c => c.Nome.Contains(nomeEtiqueta)).ToList();
         }
-        public EtiquetaEntity CriarEtiqueta(string nome, CategoriaEntity categoria)
+
+        public EtiquetaEntity CriarEtiqueta(string nome, int idCategoria)
         {
-            var novaEtiqueta = new EtiquetaEntity { Nome = nome, Categoria = categoria };
+             
+            if (nome == null)
+            {
+                throw new Exception("A Etiqueta precisa de um nome!");
+            }
+
+            
+            var categoria = _databaseContext.Categorias.Find(idCategoria);
+            if (categoria == null)
+            {
+                throw new Exception("A Categoria informada para a Etiqueta não foi encontrada!");
+            }
+
+             
+            var novaEtiqueta = new EtiquetaEntity
+            {
+                Nome = nome,
+                Categoria = categoria
+            };
             _databaseContext.Etiquetas.Add(novaEtiqueta);
             _databaseContext.SaveChanges();
 
             return novaEtiqueta;
         }
-        public EtiquetaEntity EditarEtiqueta(int id, string nome)
-        {
-            var etiqueta = _databaseContext.Etiquetas.Find(id);
 
+        public EtiquetaEntity EditarEtiqueta(int id, string nome, int idCategoria)
+        {
+            
+            var etiqueta = _databaseContext.Etiquetas.Find(id);
             if (etiqueta == null)
             {
                 throw new Exception("Etiqueta não encontrada!");
             }
 
+             
+            var categoria = _databaseContext.Categorias.Find(idCategoria);
+            if (categoria == null)
+            {
+                throw new Exception(" Não foi encontrada!");
+            }
+
+            
             etiqueta.Nome = nome;
+            etiqueta.Categoria = categoria;
             _databaseContext.SaveChanges();
 
             return etiqueta;
         }
-        public bool RemoverEtiqueta(int id)
-        {
-            var etiqueta = _databaseContext.Etiquetas.Find(id);
 
-            if (etiqueta == null)
-            {
-                throw new Exception("Etiqueta não encontrada!");
-            }
-
-            _databaseContext.Etiquetas.Remove(etiqueta);
-            _databaseContext.SaveChanges();
-
-            return true;
-        }
+       
     }
 }
